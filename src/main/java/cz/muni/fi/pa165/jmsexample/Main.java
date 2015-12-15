@@ -1,27 +1,22 @@
 package cz.muni.fi.pa165.jmsexample;
 
 import javax.jms.*;
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
-
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class Main {
-
-    private static final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 
     static class Consumer implements Runnable {
 
         @Override
         public void run() {
             try {
-                //TODO: Obtain connectionFactory through JNDI
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+                InitialContext jndi = new InitialContext();
+                ConnectionFactory connectionFactory = (ConnectionFactory) jndi.lookup("connectionFactory");
                 Connection connection = connectionFactory.createConnection();
                 connection.start();
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                
-                //TODO: Obtain destination through JNDI
-                Destination destination = session.createQueue("TASK2.HELLOWORLDQUEUE");
+                Destination destination = (Destination) jndi.lookup("Task2.HelloWorldQueue");
                 MessageConsumer consumer = session.createConsumer(destination);
                 Message message = consumer.receive();
 
@@ -37,7 +32,10 @@ public class Main {
 
             } catch (JMSException ex) {
                 System.err.println("Problem with JMS: " + ex);
-            } 
+            } catch (NamingException ex) {
+                System.err.println("Problem with JDNI: " + ex);
+            }
+
         }
 
     }
@@ -47,28 +45,26 @@ public class Main {
         @Override
         public void run() {
             try {
-                //TODO: Obtain connectionFactory through JNDI
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+                InitialContext jndi = new InitialContext();
+                ConnectionFactory connectionFactory = (ConnectionFactory) jndi.lookup("connectionFactory");
                 Connection connection = connectionFactory.createConnection();
                 connection.start();
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                
-                //TODO: Obtain destination through JNDI
-                Destination destination = session.createQueue("TASK2.HELLOWORLDQUEUE");
+                Destination destination = (Destination) jndi.lookup("Task2.HelloWorldQueue");
                 MessageProducer producer = session.createProducer(destination);
                 producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-                
                 String text = "Hello world!";
                 TextMessage message = session.createTextMessage(text);
                 System.out.println("Sent message: " + message.getText());
-                
                 producer.send(message);
-                
+                session.close();
                 connection.close();
                 session.close();
                 connection.close();
             } catch (JMSException ex) {
                 System.err.println("Problem with JMS: " + ex);
+            } catch (NamingException ex) {
+                System.err.println("Problem with JDNI: " + ex);
             }
         }
 
