@@ -1,10 +1,10 @@
 # JMS Example
 
-First, install ActiveMQ.
+First, install ActiveMQ. If you work on student machines, follow the guide in a separate text file named activemq-install.md.
 
 ##Task 01
 
-Run git clone 
+Run git clone https://github.com/misostc/jms-example.git
 
 Run git checkout -f step1
 
