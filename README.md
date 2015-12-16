@@ -8,7 +8,7 @@ Run git clone https://github.com/misostc/jms-example.git
 
 Run git checkout -f step1
 
-Your task is to implement according to the TODOs a Producer based on Activemq which will sent a simple message. There is already an application skeleton containing an implementation of a Consumer which can receive this message and print it to System.out.
+Your task is to implement according to the TODOs a Consumer based on Activemq which will receive a text message and print it to System.out. There is already an application skeleton containing an implementation of a Producer which sends the message you need to receive.
 
 ##Task02
 Run git checkout -f step2
