@@ -1,4 +1,4 @@
-#Installation of ActiveMQ at student machines
+# Installation of ActiveMQ at student machines
 
 **Task 01** Be sure that Java 7 Runtime is already instaled on your computer
 by command java -version
