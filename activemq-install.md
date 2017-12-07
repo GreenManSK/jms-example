@@ -4,7 +4,7 @@
 by command java -version
 
 **Task 02** Download open source message broker with a full JMS v 1.1 support called 
-AcviceMQ from http://apache.miloslavbrada.cz/activemq/5.13.0/apache-activemq-5.13.0-bin.tar.gz
+ActiveMQ from https://archive.apache.org/dist/activemq/5.13.0/apache-activemq-5.13.0-bin.tar.gz
 and extract the archive.
 
 **Task 03** Run ActiveMQ in foregroud by running "./activemq console" command in "apache-activemq-5.13.0/bin" directory
